@@ -53,6 +53,12 @@ function App() {
     const [selectedStatus, setSelectedStatus] = useState('All');
     const [searchQuery, setSearchQuery] = useState('');
     
+    // Map tile provider & custom key
+    const [mapTileProvider, setMapTileProvider] = useState('esri_dark'); // 'esri_dark', 'osm', 'mapbox'
+    const [mapboxApiKey, setMapboxApiKey] = useState(() => localStorage.getItem('mapbox_token') || '');
+    const [tempKeyInput, setTempKeyInput] = useState('');
+    const [showKeyModal, setShowKeyModal] = useState(false);
+
     // AI Copilot State
     const [aiQuery, setAiQuery] = useState('');
     const [aiLoading, setAiLoading] = useState(false);
@@ -165,76 +171,114 @@ function App() {
 
     // Initialize Leaflet Map
     useEffect(() => {
-        if (activeTab === 'map' && districts.length > 0 && mapRef.current && !leafletMap.current) {
-            const map = L.map(mapRef.current).setView([22.5937, 78.9629], 5);
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-                attribution: '&copy; OpenStreetMap &copy; CARTO',
-                maxZoom: 18,
-            }).addTo(map);
+        if (activeTab !== 'map' || !mapRef.current || districts.length === 0) return;
 
-            const group = L.layerGroup().addTo(map);
-            leafletMap.current = map;
-            markersGroup.current = group;
+        // Cleanup existing map if present to avoid "Map container is already initialized"
+        if (leafletMap.current) {
+            try {
+                leafletMap.current.remove();
+            } catch(e) {}
+            leafletMap.current = null;
         }
 
-        // Plot district markers
-        if (activeTab === 'map' && leafletMap.current && markersGroup.current && districts.length > 0) {
-            markersGroup.current.clearLayers();
+        const map = L.map(mapRef.current, {
+            center: [22.5937, 78.9629],
+            zoom: 5,
+            scrollWheelZoom: true
+        });
+        leafletMap.current = map;
 
-            districts.forEach(d => {
-                let color = '#3b82f6';
-                if (d.investment_status.includes('Critically Under-Invested')) color = '#ef4444';
-                else if (d.investment_status.includes('Moderate Deficit')) color = '#f59e0b';
-                else if (d.investment_status.includes('Saturated')) color = '#10b981';
-                else if (d.investment_status.includes('Well Funded')) color = '#6366f1';
+        // Determine Tile Provider
+        let tileUrl = 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}';
+        let attr = '&copy; Esri, HERE, Garmin, OpenStreetMap';
 
-                const circle = L.circleMarker([d.latitude, d.longitude], {
-                    radius: 12,
-                    fillColor: color,
-                    color: '#ffffff',
-                    weight: 2,
-                    opacity: 0.9,
-                    fillOpacity: 0.85
-                });
+        if (mapTileProvider === 'osm') {
+            tileUrl = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+            attr = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+        } else if (mapTileProvider === 'mapbox' && mapboxApiKey) {
+            tileUrl = `https://api.mapbox.com/styles/v1/mapbox/dark-v11/tiles/{z}/{x}/{y}?access_token=${mapboxApiKey}`;
+            attr = '&copy; <a href="https://www.mapbox.com/">Mapbox</a>';
+        }
 
-                const popupHtml = `
-                    <div class="p-1 text-slate-100 font-sans leading-tight">
-                        <div class="flex items-center justify-between gap-2 border-b border-slate-700 pb-1.5 mb-1.5">
-                            <span class="font-bold text-sm text-white">${d.district}</span>
-                            <span class="text-xs text-slate-400 font-semibold">${d.state}</span>
-                        </div>
-                        <div class="text-xs space-y-1 my-2">
-                            <div class="flex justify-between text-slate-300">
-                                <span>Status:</span>
-                                <span class="font-semibold text-amber-400">${d.investment_status}</span>
-                            </div>
-                            <div class="flex justify-between text-slate-300">
-                                <span>Need Index:</span>
-                                <span class="font-mono text-rose-400 font-bold">${d.composite_need_index}/100</span>
-                            </div>
-                            <div class="flex justify-between text-slate-300">
-                                <span>Total Spent:</span>
-                                <span class="font-mono text-emerald-400 font-bold">₹${(d.total_spent / 10000000).toFixed(2)} Cr</span>
-                            </div>
-                            <div class="flex justify-between text-slate-300">
-                                <span>Per Capita Spend:</span>
-                                <span class="font-mono text-sky-400 font-bold">₹${d.per_capita_spend}</span>
-                            </div>
-                            <div class="flex justify-between text-slate-300">
-                                <span>Active Projects:</span>
-                                <span class="font-semibold text-white">${d.project_count} projects</span>
-                            </div>
-                        </div>
-                        <button onclick="window.triggerDistrictDrilldown('${d.district}')" class="w-full mt-2 py-1 px-2.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold rounded cursor-pointer transition">
-                            Inspect District Projects →
-                        </button>
-                    </div>
-                `;
-                circle.bindPopup(popupHtml);
-                markersGroup.current.addLayer(circle);
+        L.tileLayer(tileUrl, {
+            attribution: attr,
+            maxZoom: 18,
+        }).addTo(map);
+
+        const group = L.layerGroup().addTo(map);
+        markersGroup.current = group;
+
+        // Populate markers
+        districts.forEach(d => {
+            let color = '#3b82f6';
+            if (d.investment_status.includes('Critically Under-Invested')) color = '#ef4444';
+            else if (d.investment_status.includes('Moderate Deficit')) color = '#f59e0b';
+            else if (d.investment_status.includes('Saturated')) color = '#10b981';
+            else if (d.investment_status.includes('Well Funded')) color = '#6366f1';
+
+            const circle = L.circleMarker([d.latitude, d.longitude], {
+                radius: 12,
+                fillColor: color,
+                color: '#ffffff',
+                weight: 2,
+                opacity: 0.9,
+                fillOpacity: 0.85
             });
-        }
-    }, [activeTab, districts]);
+
+            const popupHtml = `
+                <div class="p-1 text-slate-100 font-sans leading-tight">
+                    <div class="flex items-center justify-between gap-2 border-b border-slate-700 pb-1.5 mb-1.5">
+                        <span class="font-bold text-sm text-white">${d.district}</span>
+                        <span class="text-xs text-slate-400 font-semibold">${d.state}</span>
+                    </div>
+                    <div class="text-xs space-y-1 my-2">
+                        <div class="flex justify-between text-slate-300">
+                            <span>Status:</span>
+                            <span class="font-semibold text-amber-400">${d.investment_status}</span>
+                        </div>
+                        <div class="flex justify-between text-slate-300">
+                            <span>Need Index:</span>
+                            <span class="font-mono text-rose-400 font-bold">${d.composite_need_index}/100</span>
+                        </div>
+                        <div class="flex justify-between text-slate-300">
+                            <span>Total Spent:</span>
+                            <span class="font-mono text-emerald-400 font-bold">₹${(d.total_spent / 10000000).toFixed(2)} Cr</span>
+                        </div>
+                        <div class="flex justify-between text-slate-300">
+                            <span>Per Capita Spend:</span>
+                            <span class="font-mono text-sky-400 font-bold">₹${d.per_capita_spend}</span>
+                        </div>
+                        <div class="flex justify-between text-slate-300">
+                            <span>Active Projects:</span>
+                            <span class="font-semibold text-white">${d.project_count} projects</span>
+                        </div>
+                    </div>
+                    <button onclick="window.triggerDistrictDrilldown('${d.district}')" class="w-full mt-2 py-1 px-2.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold rounded cursor-pointer transition">
+                        Inspect District Projects →
+                    </button>
+                </div>
+            `;
+            circle.bindPopup(popupHtml);
+            group.addLayer(circle);
+        });
+
+        // Invalidate size to ensure proper tile coverage in all containers
+        const timer = setTimeout(() => {
+            if (leafletMap.current) {
+                leafletMap.current.invalidateSize();
+            }
+        }, 300);
+
+        return () => {
+            clearTimeout(timer);
+            if (leafletMap.current) {
+                try {
+                    leafletMap.current.remove();
+                } catch(e) {}
+                leafletMap.current = null;
+            }
+        };
+    }, [activeTab, districts, mapTileProvider, mapboxApiKey]);
 
     // Handle global click for popup button
     useEffect(() => {
@@ -462,6 +506,50 @@ function App() {
                                     <span className="flex items-center gap-1.5 text-slate-300"><span className="w-3 h-3 rounded-full bg-blue-500"></span> Balanced</span>
                                     <span className="flex items-center gap-1.5 text-slate-300"><span className="w-3 h-3 rounded-full bg-emerald-500"></span> Saturated</span>
                                 </div>
+                            </div>
+
+                            {/* Map Layer Toolbar */}
+                            <div className="flex flex-wrap items-center justify-between gap-3 mb-3 p-2.5 bg-slate-950/50 rounded-xl border border-slate-800/80">
+                                <div className="flex items-center gap-2">
+                                    <span className="text-[11px] font-semibold text-slate-400 uppercase">Map Tiles:</span>
+                                    <button 
+                                        onClick={() => setMapTileProvider('esri_dark')}
+                                        className={`px-2.5 py-1 text-xs font-semibold rounded-lg transition ${
+                                            mapTileProvider === 'esri_dark' ? 'bg-indigo-600 text-white shadow-sm' : 'bg-slate-800 text-slate-400 hover:text-white'
+                                        }`}
+                                    >
+                                        🌙 Esri Dark (Free, No Key)
+                                    </button>
+                                    <button 
+                                        onClick={() => setMapTileProvider('osm')}
+                                        className={`px-2.5 py-1 text-xs font-semibold rounded-lg transition ${
+                                            mapTileProvider === 'osm' ? 'bg-indigo-600 text-white shadow-sm' : 'bg-slate-800 text-slate-400 hover:text-white'
+                                        }`}
+                                    >
+                                        🗺️ OpenStreetMap (Free, No Key)
+                                    </button>
+                                    <button 
+                                        onClick={() => {
+                                            if (!mapboxApiKey) {
+                                                setShowKeyModal(true);
+                                            } else {
+                                                setMapTileProvider('mapbox');
+                                            }
+                                        }}
+                                        className={`px-2.5 py-1 text-xs font-semibold rounded-lg transition ${
+                                            mapTileProvider === 'mapbox' ? 'bg-indigo-600 text-white shadow-sm' : 'bg-slate-800 text-slate-400 hover:text-white'
+                                        }`}
+                                    >
+                                        🛰️ Mapbox {mapboxApiKey ? '✓ Active' : '(Custom Key)'}
+                                    </button>
+                                </div>
+
+                                <button 
+                                    onClick={() => { setTempKeyInput(mapboxApiKey); setShowKeyModal(true); }}
+                                    className="text-xs text-sky-400 hover:text-sky-300 flex items-center gap-1 font-semibold"
+                                >
+                                    <span>🔑 Mapbox API Key Settings</span>
+                                </button>
                             </div>
                             
                             <div id="map" ref={mapRef}></div>
@@ -1083,6 +1171,84 @@ function App() {
                         >
                             Close
                         </button>
+                    </div>
+                </div>
+            )}
+
+            {/* Mapbox API Key Settings Modal */}
+            {showKeyModal && (
+                <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-sm flex items-center justify-center p-4">
+                    <div className="bg-slate-900 border border-slate-800 rounded-2xl max-w-lg w-full p-6 space-y-4 shadow-2xl">
+                        <div className="flex items-start justify-between border-b border-slate-800 pb-3">
+                            <div>
+                                <h3 className="text-base font-bold text-white flex items-center gap-2">
+                                    <span>🔑 Map Tile & API Key Settings</span>
+                                </h3>
+                                <p className="text-xs text-slate-400">Configure your map tile provider and optional Mapbox token</p>
+                            </div>
+                            <button onClick={() => setShowKeyModal(false)} className="text-slate-400 hover:text-white font-bold">✕</button>
+                        </div>
+
+                        <div className="bg-emerald-950/20 border border-emerald-800/40 p-3 rounded-xl text-xs text-emerald-300">
+                            <span className="font-bold block mb-1">✓ No API Key Required by Default:</span>
+                            The app currently runs with <strong>Esri Dark Canvas</strong> and <strong>OpenStreetMap</strong>, which are 100% free and work out-of-the-box without any registration!
+                        </div>
+
+                        <div className="space-y-2 text-xs text-slate-300">
+                            <span className="font-bold text-white block">Optional: Use Mapbox High-Res Tiles</span>
+                            <p className="text-slate-400 leading-relaxed">
+                                To use Mapbox vectors:
+                                <br />1. Visit <a href="https://account.mapbox.com/" target="_blank" className="text-sky-400 underline font-semibold">https://account.mapbox.com/</a> (Free registration).
+                                <br />2. On your dashboard, copy your <strong>Default public token</strong> (starts with <code className="text-amber-400">pk.eyJ...</code>).
+                                <br />3. Paste it in the input below:
+                            </p>
+
+                            <input 
+                                type="text"
+                                value={tempKeyInput}
+                                onChange={(e) => setTempKeyInput(e.target.value)}
+                                placeholder="Paste Mapbox token: pk.eyJ..."
+                                className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-xs text-white placeholder-slate-500 font-mono"
+                            />
+                        </div>
+
+                        <div className="flex justify-between items-center pt-2">
+                            {mapboxApiKey && (
+                                <button
+                                    onClick={() => {
+                                        localStorage.removeItem('mapbox_token');
+                                        setMapboxApiKey('');
+                                        setTempKeyInput('');
+                                        setMapTileProvider('esri_dark');
+                                        setShowKeyModal(false);
+                                    }}
+                                    className="text-xs text-rose-400 hover:text-rose-300 font-semibold underline"
+                                >
+                                    Remove Saved Key
+                                </button>
+                            )}
+                            <div className="flex gap-2 ml-auto">
+                                <button
+                                    onClick={() => setShowKeyModal(false)}
+                                    className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs font-semibold"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    onClick={() => {
+                                        if (tempKeyInput.trim()) {
+                                            localStorage.setItem('mapbox_token', tempKeyInput.trim());
+                                            setMapboxApiKey(tempKeyInput.trim());
+                                            setMapTileProvider('mapbox');
+                                        }
+                                        setShowKeyModal(false);
+                                    }}
+                                    className="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-xs font-bold"
+                                >
+                                    Save & Enable Mapbox
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             )}
