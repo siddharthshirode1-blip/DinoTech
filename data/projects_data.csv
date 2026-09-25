@@ -1,0 +1,61 @@
+project_id,ministry,scheme_name,project_name,category,state,district,latitude,longitude,budget_allocated,amount_spent,progress_percent,beneficiaries,start_date,end_date,status
+PRJ-AGRI-001,Ministry of Agriculture & Farmers Welfare,PM-KISAN,Beneficiary Verification,Agriculture,Uttar Pradesh,Lucknow,26.8467,80.9462,5000000,4500000,90,5000,2023-01-01,2023-12-31,Ongoing
+PRJ-AGRI-002,Ministry of Agriculture & Farmers Welfare,Soil Health Card,Soil Testing Labs,Agriculture,Punjab,Ludhiana,30.9010,75.8573,20000000,18000000,85,15000,2022-01-01,2024-12-31,Ongoing
+PRJ-AGRI-003,Ministry of Agriculture & Farmers Welfare,PM Fasal Bima Yojana,Crop Insurance Awareness,Agriculture,Maharashtra,Pune,18.5204,73.8567,1000000,200000,20,200,2023-06-01,2024-03-31,Delayed
+PRJ-AGRI-004,Ministry of Agriculture & Farmers Welfare,RKVY,Organic Farming Promotion,Agriculture,Madhya Pradesh,Bhopal,23.2599,77.4126,8000000,5000000,60,3000,2023-01-01,2024-12-31,Ongoing
+PRJ-AGRI-005,Ministry of Agriculture & Farmers Welfare,PM-KISAN,Solar Pump Distribution,Agriculture,Rajasthan,Jaipur,26.9124,75.7873,8000000,2000000,25,1000,2023-05-01,2024-05-31,Ongoing
+PRJ-AGRI-006,Ministry of Agriculture & Farmers Welfare,e-NAM,Mandi Digitization,Agriculture,Karnataka,Bengaluru,12.9716,77.5946,15000000,14000000,95,50000,2022-04-01,2023-12-31,Completed
+PRJ-AGRI-007,Ministry of Agriculture & Farmers Welfare,RKVY,Farm Mechanization,Agriculture,Bihar,Patna,25.5941,85.1376,12000000,11000000,80,4000,2023-02-01,2024-01-31,Ongoing
+PRJ-AGRI-008,Ministry of Agriculture & Farmers Welfare,PM-KISAN,Kisan Credit Card Camp,Agriculture,Gujarat,Ahmedabad,23.0225,72.5714,500000,450000,90,2000,2023-07-01,2023-12-31,Completed
+PRJ-AGRI-009,Ministry of Agriculture & Farmers Welfare,PM Fasal Bima Yojana,Weather Station Setup,Agriculture,West Bengal,Kolkata,22.5726,88.3639,25000000,20000000,80,10000,2022-01-01,2024-06-30,Ongoing
+PRJ-AGRI-010,Ministry of Agriculture & Farmers Welfare,RKVY,Precision Agriculture,Agriculture,Tamil Nadu,Chennai,13.0827,80.2707,6000000,3000000,50,1500,2023-03-01,2024-12-31,Ongoing
+PRJ-AGRI-011,Ministry of Agriculture & Farmers Welfare,Soil Health Card,Organic Farming,Agriculture,Kerala,Thiruvananthapuram,8.5241,76.9366,2000000,1800000,90,1200,2023-01-01,2023-12-31,Completed
+PRJ-AGRI-012,Ministry of Agriculture & Farmers Welfare,PM-KISAN,Farmer Producer Organizations,Agriculture,Assam,Guwahati,26.1445,91.7362,7000000,6000000,85,2500,2023-01-01,2024-05-31,Ongoing
+PRJ-RD-013,Ministry of Rural Development,MGNREGA,Rural Road Construction Phase 1,Infrastructure,Uttar Pradesh,Lucknow,26.8467,80.9462,10000000,8000000,80,1000,2022-06-01,2024-05-31,Ongoing
+PRJ-RD-014,Ministry of Rural Development,PMAY-G,Affordable Housing Phase 2,Infrastructure,Bihar,Patna,25.5941,85.1376,50000000,45000000,90,500,2022-06-01,2024-05-31,Ongoing
+PRJ-RD-015,Ministry of Rural Development,PMGSY,Water Conservation Works,Infrastructure,Madhya Pradesh,Bhopal,23.2599,77.4126,5000000,5500000,100,2000,2022-06-01,2023-12-31,Completed
+PRJ-RD-016,Ministry of Rural Development,MGNREGA,Water Conservation Works,Infrastructure,Rajasthan,Jaipur,26.9124,75.7873,3000000,3000000,100,800,2022-01-01,2023-06-30,Completed
+PRJ-RD-017,Ministry of Rural Development,NRLM,Self Help Group Formation,Women Empowerment,Maharashtra,Pune,18.5204,73.8567,8000000,7000000,85,5000,2023-01-01,2024-03-31,Ongoing
+PRJ-RD-018,Ministry of Rural Development,PMGSY,Bridge Construction,Infrastructure,Karnataka,Bengaluru,12.9716,77.5946,40000000,35000000,85,20000,2022-01-01,2024-12-31,Ongoing
+PRJ-RD-019,Ministry of Rural Development,PMAY-G,Slum Rehabilitation,Infrastructure,West Bengal,Kolkata,22.5726,88.3639,30000000,20000000,60,1500,2023-01-01,2024-12-31,Ongoing
+PRJ-RD-020,Ministry of Rural Development,MGNREGA,Pond Desilting,Infrastructure,Tamil Nadu,Chennai,13.0827,80.2707,4000000,3500000,90,1000,2023-05-01,2024-05-31,Ongoing
+PRJ-RD-021,Ministry of Rural Development,NRLM,Skill Development for Rural Youth,Women Empowerment,Gujarat,Ahmedabad,23.0225,72.5714,6000000,4000000,60,2000,2023-02-01,2024-02-28,Ongoing
+PRJ-RD-022,Ministry of Rural Development,PMGSY,Rural Connectivity,Infrastructure,Odisha,Bhubaneswar,20.2961,85.8245,15000000,12000000,75,5000,2022-06-01,2024-06-30,Ongoing
+PRJ-RD-023,Ministry of Rural Development,PMAY-G,Housing for All,Infrastructure,Kerala,Thiruvananthapuram,8.5241,76.9366,25000000,24000000,95,3000,2022-01-01,2023-12-31,Completed
+PRJ-RD-024,Ministry of Rural Development,MGNREGA,Flood Control Embankments,Infrastructure,Assam,Guwahati,26.1445,91.7362,12000000,10000000,80,2000,2023-01-01,2024-05-31,Ongoing
+PRJ-EDU-025,Ministry of Education,Samagra Shiksha,Smart Classroom Setup,Education,Uttar Pradesh,Lucknow,26.8467,80.9462,20000000,15000000,75,3000,2023-04-01,2024-03-31,Ongoing
+PRJ-EDU-026,Ministry of Education,Mid-Day Meal,Nutritional Support Program,Education,Maharashtra,Pune,18.5204,73.8567,8000000,7000000,85,10000,2023-01-01,2023-12-31,Ongoing
+PRJ-EDU-027,Ministry of Education,PM e-VIDYA,Digital Learning Centers,Education,Karnataka,Bengaluru,12.9716,77.5946,15000000,3000000,20,500,2023-04-01,2024-03-31,Delayed
+PRJ-EDU-028,Ministry of Education,Samagra Shiksha,Smart Classroom Setup,Education,Gujarat,Ahmedabad,23.0225,72.5714,25000000,10000000,40,4000,2023-01-01,2024-12-31,Ongoing
+PRJ-EDU-029,Ministry of Education,Mid-Day Meal,Kitchen Garden Initiative,Education,Bihar,Patna,25.5941,85.1376,5000000,4500000,90,8000,2023-01-01,2023-12-31,Ongoing
+PRJ-EDU-030,Ministry of Education,PM e-VIDYA,Teacher Training,Education,Madhya Pradesh,Bhopal,23.2599,77.4126,6000000,5000000,80,2000,2023-02-01,2024-02-28,Ongoing
+PRJ-EDU-031,Ministry of Education,Samagra Shiksha,Girls Hostel Construction,Education,Rajasthan,Jaipur,26.9124,75.7873,30000000,28000000,90,1000,2022-01-01,2024-03-31,Ongoing
+PRJ-EDU-032,Ministry of Education,PM e-VIDYA,Tablet Distribution,Education,Tamil Nadu,Chennai,13.0827,80.2707,40000000,35000000,85,20000,2023-01-01,2024-06-30,Ongoing
+PRJ-EDU-033,Ministry of Education,Mid-Day Meal,School Nutrition,Education,West Bengal,Kolkata,22.5726,88.3639,12000000,11000000,95,15000,2023-01-01,2023-12-31,Completed
+PRJ-EDU-034,Ministry of Education,Samagra Shiksha,Inclusive Education,Education,Kerala,Thiruvananthapuram,8.5241,76.9366,7000000,6500000,90,1500,2023-01-01,2023-12-31,Completed
+PRJ-EDU-035,Ministry of Education,PM e-VIDYA,Virtual Labs,Education,Odisha,Bhubaneswar,20.2961,85.8245,10000000,4000000,40,1000,2023-05-01,2024-05-31,Ongoing
+PRJ-EDU-036,Ministry of Education,Samagra Shiksha,Bicycle Distribution,Education,Assam,Guwahati,26.1445,91.7362,5000000,5000000,100,5000,2022-01-01,2023-12-31,Completed
+PRJ-HEALTH-037,Ministry of Health & Family Welfare,National Health Mission,Mobile Health Clinics,Health,Bihar,Patna,25.5941,85.1376,1000000,1500000,40,2000,2023-01-01,2023-12-31,Delayed
+PRJ-HEALTH-038,Ministry of Health & Family Welfare,Ayushman Bharat,Health Insurance Camp,Health,Madhya Pradesh,Bhopal,23.2599,77.4126,2000000,1500000,75,2000,2023-01-01,2023-12-31,Ongoing
+PRJ-HEALTH-039,Ministry of Health & Family Welfare,PM National Dialysis Programme,Dialysis Center Upgrade,Health,Tamil Nadu,Chennai,13.0827,80.2707,30000000,29000000,95,1500,2022-01-01,2024-12-31,Ongoing
+PRJ-HEALTH-040,Ministry of Health & Family Welfare,National Health Mission,Maternal Health Clinics,Health,Gujarat,Ahmedabad,23.0225,72.5714,12000000,5000000,45,3000,2023-03-01,2024-08-31,Ongoing
+PRJ-HEALTH-041,Ministry of Health & Family Welfare,Ayushman Bharat,Health Card Distribution,Health,Uttar Pradesh,Lucknow,26.8467,80.9462,5000000,4500000,90,10000,2023-01-01,2023-12-31,Ongoing
+PRJ-HEALTH-042,Ministry of Health & Family Welfare,Mission Indradhanush,Vaccination Drive,Health,Maharashtra,Pune,18.5204,73.8567,8000000,7000000,85,15000,2023-01-01,2024-03-31,Ongoing
+PRJ-HEALTH-043,Ministry of Health & Family Welfare,National Health Mission,Telemedicine Centers,Health,Karnataka,Bengaluru,12.9716,77.5946,25000000,20000000,80,5000,2022-01-01,2024-06-30,Ongoing
+PRJ-HEALTH-044,Ministry of Health & Family Welfare,Ayushman Bharat,Empanelled Hospital Verification,Health,Rajasthan,Jaipur,26.9124,75.7873,3000000,2500000,80,500,2023-02-01,2024-01-31,Ongoing
+PRJ-HEALTH-045,Ministry of Health & Family Welfare,National Health Mission,Vector Borne Disease Control,Health,West Bengal,Kolkata,22.5726,88.3639,6000000,5000000,80,20000,2023-01-01,2023-12-31,Ongoing
+PRJ-HEALTH-046,Ministry of Health & Family Welfare,PM National Dialysis Programme,Peritoneal Dialysis Expansion,Health,Kerala,Thiruvananthapuram,8.5241,76.9366,15000000,14000000,95,1000,2022-06-01,2024-05-31,Ongoing
+PRJ-HEALTH-047,Ministry of Health & Family Welfare,National Health Mission,Mobile Health Clinics,Health,Odisha,Bhubaneswar,20.2961,85.8245,4000000,3500000,85,3000,2023-01-01,2024-03-31,Ongoing
+PRJ-HEALTH-048,Ministry of Health & Family Welfare,Ayushman Bharat,Health Insurance Camp,Health,Assam,Guwahati,26.1445,91.7362,2000000,1000000,50,1000,2023-05-01,2024-05-31,Ongoing
+PRJ-WCD-049,Ministry of Women & Child Development,ICDS,Anganwadi Center Construction,Nutrition,Uttar Pradesh,Lucknow,26.8467,80.9462,6000000,6000000,100,1500,2023-01-01,2023-12-31,Completed
+PRJ-WCD-050,Ministry of Women & Child Development,Beti Bachao Beti Padhao,Girl Child Education Awareness,Women Empowerment,Maharashtra,Pune,18.5204,73.8567,500000,500000,100,800,2023-01-01,2023-12-31,Completed
+PRJ-WCD-051,Ministry of Women & Child Development,Poshan Abhiyaan,Nutrition Kit Distribution,Nutrition,Bihar,Patna,25.5941,85.1376,2500000,1000000,40,5000,2023-01-01,2024-06-30,Ongoing
+PRJ-WCD-052,Ministry of Women & Child Development,Poshan Abhiyaan,Supplementary Nutrition Program,Nutrition,Karnataka,Bengaluru,12.9716,77.5946,12000000,11000000,95,8000,2023-01-01,2023-12-31,Ongoing
+PRJ-WCD-053,Ministry of Women & Child Development,ICDS,Pre-School Education Kits,Education,Gujarat,Ahmedabad,23.0225,72.5714,4000000,3500000,85,4000,2023-01-01,2023-12-31,Ongoing
+PRJ-WCD-054,Ministry of Women & Child Development,Beti Bachao Beti Padhao,Self Defense Training,Women Empowerment,Madhya Pradesh,Bhopal,23.2599,77.4126,3000000,2500000,80,2000,2023-03-01,2024-02-28,Ongoing
+PRJ-WCD-055,Ministry of Women & Child Development,Poshan Abhiyaan,Community Nutrition Camps,Nutrition,Rajasthan,Jaipur,26.9124,75.7873,6000000,5000000,80,10000,2023-01-01,2024-03-31,Ongoing
+PRJ-WCD-056,Ministry of Women & Child Development,ICDS,Anganwadi Infrastructure Upgrade,Nutrition,Tamil Nadu,Chennai,13.0827,80.2707,15000000,14000000,95,3000,2022-01-01,2024-12-31,Ongoing
+PRJ-WCD-057,Ministry of Women & Child Development,Poshan Abhiyaan,Maternal Nutrition,Nutrition,West Bengal,Kolkata,22.5726,88.3639,8000000,7000000,85,6000,2023-01-01,2023-12-31,Ongoing
+PRJ-WCD-058,Ministry of Women & Child Development,Beti Bachao Beti Padhao,Skill Development for Women,Women Empowerment,Kerala,Thiruvananthapuram,8.5241,76.9366,5000000,4500000,90,1500,2023-01-01,2023-12-31,Completed
+PRJ-WCD-059,Ministry of Women & Child Development,ICDS,Mobile Anganwadi Units,Nutrition,Odisha,Bhubaneswar,20.2961,85.8245,7000000,2000000,30,1000,2023-04-01,2024-06-30,Delayed
+PRJ-WCD-060,Ministry of Women & Child Development,Poshan Abhiyaan,Nutrition Rehabilitation Centers,Nutrition,Assam,Guwahati,26.1445,91.7362,4000000,3500000,85,2000,2023-01-01,2024-01-31,Ongoing
