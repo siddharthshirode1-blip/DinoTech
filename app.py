@@ -16,7 +16,11 @@ from intelligence.anomaly_detector import AnomalyDetector
 from intelligence.recommendations import Recommender
 from intelligence.nlp_query import NLPQueryEngine
 
-app = Flask(__name__, template_folder="templates", static_folder="static")
+app = Flask(
+    __name__,
+    template_folder=os.path.join(BASE_DIR, "templates"),
+    static_folder=os.path.join(BASE_DIR, "static")
+)
 
 gap_analyzer = GapAnalyzer(harmonizer)
 overlap_detector = OverlapDetector(harmonizer)
