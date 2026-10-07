@@ -83,7 +83,7 @@ Double-click `run.bat` in the project root folder. It starts the server and open
 # Navigate to the project directory
 cd c:\Users\Siddharth\OneDrive\Desktop\Siddharth.S\Projects\gov-intelligence-platform
 
-# Launch the server
+# Launch the server.
 py app.py
 ```
 Open **`http://127.0.0.1:5000`** in your browser.
